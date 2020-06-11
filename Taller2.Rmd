@@ -1,0 +1,42 @@
+---
+title: "Taller número 2 de Simulación"
+output: html_document
+---
+# **Grupo 2**
+## **Integrantes:** *Liseth Recalde, Jorge Sosa*
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### *Ejercicio 6*
+ Uno de los primeros generadores fue el denominado método de los cuadrados medios propuesto por Von Neumann (1946). Con este procedimiento se generan números pseudoaleatorios de 4 dgitos de la siguiente forma:
+ 
+i. Se escoge un número de cuatro dígitos $x_{0}$ (semilla). 
+
+ii. Se eleva al cuadrado $(x_{0}^{2})$ y se toman los cuatro dígitos centrales $(x_{1})$. 
+
+iii. Se genera el número pseudo-aleatorio como:
+
+$$
+\begin{aligned}
+u_{1} = \frac{x_{1}}{10^{4}}
+\end{aligned}
+$$
+iv. Volver al paso ii y repetir el proceso.
+
+Para obtener los $k$ (número par) dígitos centrales de $x_{i}^{2}$ se puede utilizar que: 
+$$
+\begin{aligned}
+x_{i+1} = \Bigl\lfloor{\frac{\left(x_{i}^{2}-\Bigl\lfloor{\frac{x_{i}^{2}}{10^{(2k- \frac{k}{2})}}}\Bigr\rfloor10^{(2k-\frac{k}{2})}\right)}{10^{\frac{k}{2}}}}\Bigr\rfloor
+\end{aligned}
+$$
+
+
+### *Ejercicio 7*
+Considerando el generador congruencial multiplicativo de parámetros $a = 7^{5} = 16807$, $c = 0$ y $m = 2^{31} -1$: 
+
+a)¿Se observan los mismos problemas que con el algoritmo RANDU al considerar las tripletas $(x_{k};x_{k+1};x_{k+2})$?
+
+b)Estudiar la aleatoriedad de este generador empleando repetidamente el test de Ljung-Box, considerando $500$ pruebas con muestras de tamaño $50$ y hasta el salto $10$ $(Box.test(u,lag=10, type="Ljung"))$. Comparar grácamente el ajuste de las distribuciones del estadístico y p-valor a las de referencia.
+
+

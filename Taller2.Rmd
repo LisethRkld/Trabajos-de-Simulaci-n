@@ -30,6 +30,7 @@ $$
 x_{i+1} = \Bigl\lfloor{\frac{\left(x_{i}^{2}-\Bigl\lfloor{\frac{x_{i}^{2}}{10^{(2k- \frac{k}{2})}}}\Bigr\rfloor10^{(2k-\frac{k}{2})}\right)}{10^{\frac{k}{2}}}}\Bigr\rfloor
 \end{aligned}
 $$
+El algoritmo está implementado en el fichero **RANDVN.R**. Estudiar las características del generador de cuadrados medios a partir de una secuencia de 500 valores obtenidos tomando como semilla inicial los cuatro primeros dígitos del DNI. Emplear únicamente métodos gráficos.
 
 
 ### *Ejercicio 7*

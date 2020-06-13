@@ -99,6 +99,8 @@ Grafico Secuencial
 plot(as.ts(u))
 ```
 
+Se puede ver que al principio existe una posible independencia pero despues se ve claramente una dependencia negativa.
+
 Gráfico de Dispersión retardado
 ```{r}
 plot(u[-nsim],u[-1])

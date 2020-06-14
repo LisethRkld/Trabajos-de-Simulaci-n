@@ -165,8 +165,14 @@ Ahora veamos la representación gráfica del Estadístico
 ```{r =T}
 hist(as.numeric(Y),main = paste("Histograma del Estadístico"),xlab ="Estadístico", ylab="Frecuencia",)
 ```
+```{r eval=T}
+mean(as.numeric(Y))
+```
 
 Mientras que la representación gráfica del p-valor tiene la forma
 ```{r include=T}
 hist(as.numeric(Z),main = paste("Histograma de p-valor"),xlab ="p-valor", ylab="Frecuencia",)
+```
+```{r eval=T}
+mean(as.numeric(Z))
 ```

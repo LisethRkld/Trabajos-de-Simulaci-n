@@ -1,6 +1,8 @@
 ---
 title: "Taller número 2 de Simulación"
-output: html_document
+output:
+  html_document: default
+  pdf_document: default
 ---
 # **Grupo 2**
 ## **Integrantes:** *Liseth Recalde, Jorge Sosa*
@@ -115,8 +117,56 @@ acf(u)
 ### *Ejercicio 7*
 Considerando el generador congruencial multiplicativo de parámetros $a = 7^{5} = 16807$, $c = 0$ y $m = 2^{31} -1$: 
 
-a)¿Se observan los mismos problemas que con el algoritmo RANDU al considerar las tripletas $(x_{k};x_{k+1};x_{k+2})$?
+_a)¿Se observan los mismos problemas que con el algoritmo RANDU al considerar las tripletas $(x_{k};x_{k+1};x_{k+2})$?_
 
-b)Estudiar la aleatoriedad de este generador empleando repetidamente el test de Ljung-Box, considerando $500$ pruebas con muestras de tamaño $50$ y hasta el salto $10$ $(Box.test(u,lag=10, type="Ljung"))$. Comparar grácamente el ajuste de las distribuciones del estadístico y p-valor a las de referencia.
+Obtendremos 9999 muestras de este generador para tener un ambiente similar de comparación al realizado con el algoritmo RANDU.
+Generador Congruencial Multiplicativo
 
+```{r echo=T}
+Gen_Congr <- function(a=16807,m=2^{31} -1,x0=12345) {
+  x1 <- (a*x0)%%m
+  return (x1)
+}
 
+GC_repetido<- function(x0=12345,n=9999) {
+  x <- replicate(n,0)
+  x[1]=x0
+  for (i in 2:n) x[i] <- Gen_Congr(a=16807,m=2^{31} -1,x[i-1])
+  return (x)
+}
+```
+
+Generamos la muestra
+```{r include=T}
+muestra <-GC_repetido(x0 = 12345, n=9999)/(2^{31}-1) 
+P <- matrix(muestra, ncol = 3, byrow = TRUE)
+
+library(plot3D)
+points3D(P[,1], P[,2], P[,3], colvar = NULL, phi = 60, 
+         theta = -50, pch = 21, cex = 0.2)
+```
+
+En la gráfica no se muestran patrones en las diferentes tripletas por lo que, al menos en esta prueba, el método congruencial no posee los mismos problemas que el método RANDU.
+
+_b)Estudiar la aleatoriedad de este generador empleando repetidamente el test de Ljung-Box, considerando $500$ pruebas con muestras de tamaño $50$ y hasta el salto $10$ $(Box.test(u,lag=10, type="Ljung"))$. Comparar gráficamente el ajuste de las distribuciones del estadístico y p-valor a las de referencia._
+
+Generamos las muestras del Método Congruencial utilizando como semillas valores generados por la función _sample_
+
+```{r eval=TRUE}
+Y <- replicate(500,0) #vector de valores del estadístico 
+Z <- replicate(500,0) #vector de valores del p-valor
+for (i in 1:500){
+  A <- Box.test(GC_repetido(sample(1:10000,1),n=50)/(2^{31}-1) ,lag=10,type="Ljung-Box")
+  Y[i] <- A[1] #Guardamos el estadístico
+  Z[i] <- A[3] #Guardamos el p-valor
+}
+```
+Ahora veamos la representación gráfica
+```{r =T}
+hist(as.numeric(Y))
+```
+
+Mientras que la representación gráfica del estadístico tiene la forma
+```{r include=T}
+hist(as.numeric(Z))
+```

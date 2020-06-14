@@ -161,12 +161,12 @@ for (i in 1:500){
   Z[i] <- A[3] #Guardamos el p-valor
 }
 ```
-Ahora veamos la representación gráfica
+Ahora veamos la representación gráfica del Estadístico
 ```{r =T}
 hist(as.numeric(Y),main = paste("Histograma del Estadístico"),xlab ="Estadístico", ylab="Frecuencia",)
 ```
 
-Mientras que la representación gráfica del estadístico tiene la forma
+Mientras que la representación gráfica del p-valor tiene la forma
 ```{r include=T}
 hist(as.numeric(Z),main = paste("Histograma de p-valor"),xlab ="p-valor", ylab="Frecuencia",)
 ```
